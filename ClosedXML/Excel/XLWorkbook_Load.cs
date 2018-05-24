@@ -1426,6 +1426,7 @@ namespace ClosedXML.Excel
 
                         case CellValues.InlineString:
                         case CellValues.SharedString:
+                        case CellValues.String:
                             xlCell.SetDataTypeFast(XLDataType.Text);
                             break;
                     }
@@ -1484,6 +1485,7 @@ namespace ClosedXML.Excel
 
                         case CellValues.InlineString:
                         case CellValues.SharedString:
+                        case CellValues.String:
                             xlCell.SetDataTypeFast(XLDataType.Text);
                             break;
                     }
@@ -1525,6 +1527,17 @@ namespace ClosedXML.Excel
                     }
                     else
                         xlCell.SetInternalCellValueString(String.Empty);
+                }
+                else if (cell.DataType == CellValues.String) 
+                {
+                    xlCell.SetDataTypeFast(XLDataType.Text);
+                    
+                    if (cell.CellValue != null && !String.IsNullOrEmpty(cell.CellValue.Text)) 
+                        xlCell.SetInternalCellValueString(cell.CellValue.Text);
+                    else
+                        xlCell.SetInternalCellValueString(String.Empty);
+                        
+                    
                 }
                 else if (cell.DataType == CellValues.Date)
                 {
